@@ -1,0 +1,7 @@
+product_id,price,inventory,transaction_id
+SKU-101,1499.00,12,TXN-001
+,999.00,5,TXN-002
+SKU-103,-50,8,TXN-003
+SKU-104,350.5,-2,TXN-004
+SKU-105,900,3.5,TXN-004
+SKU-106,abc,10,TXN-006
