@@ -229,6 +229,19 @@ python -m unittest discover -s tests -v
 
 ---
 
+## Open-Source Attribution
+
+This project extends the MIT-licensed **AI Data Readiness Auditor** originally developed by **Gustavo Angulo**.
+
+### Retail Validation Extension
+- Added configurable validation rules for product identifiers, prices, inventory quantities, and transaction IDs.
+- Added CSV-based issue reporting and automated validation tests.
+- Deployed the extended application using Streamlit Community Cloud.
+
+The original profiling, scoring, dashboard, and reporting functionality is based on the upstream project.
+
+---
+
 ## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
