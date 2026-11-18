@@ -1,6 +1,6 @@
-# AI Data Readiness Auditor
+# AI Data Readiness Auditor (with Retail Validation Extension)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://ai-data-readiness-auditor.streamlit.app/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B?logo=streamlit&logoColor=white)](https://ai-data-readiness-auditor-g94hkbe2thkhwu9yrv3l5a.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![pandas](https://img.shields.io/badge/pandas-Data-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
@@ -11,373 +11,224 @@
 
 > **Clean the data before trusting the dashboard.**
 
-A local-first web application that helps anyone upload a CSV or Excel file and
-quickly understand whether the dataset is ready for analysis, dashboarding,
-reporting, or AI-assisted insights. It profiles the data, detects quality
-issues, produces a **Data Quality Score** and a **Dashboard Readiness Score**,
-drafts a data dictionary, and generates an executive-ready audit report — all
-without needing an API key or internet connection.
+A local-first and cloud-ready web application that helps anyone upload a CSV or Excel file and quickly understand whether the dataset is ready for analysis, dashboarding, reporting, or AI-assisted insights. It profiles the data, detects quality issues, produces a **Data Quality Score** and a **Dashboard Readiness Score**, provides a specialized **Retail Data Validation** suite, drafts an automated data dictionary, and generates executive-ready audit reports — all functional without requiring an API key or internet connection, with optional AI enhancement.
 
 ---
 
-## Quick Start
+## 🚀 Live Demo
 
-**🚀 Live demo:** **<https://ai-data-readiness-auditor.streamlit.app/>** — try it
-in your browser, no install required.
+Try the live application in your browser:
+👉 **[https://ai-data-readiness-auditor-g94hkbe2thkhwu9yrv3l5a.streamlit.app/](https://ai-data-readiness-auditor-g94hkbe2thkhwu9yrv3l5a.streamlit.app/)**
 
-To run it locally:
+No installation or API key required. You can test immediately using the built-in sample datasets!
+
+---
+
+## Quick Start (Run Locally)
 
 ```bash
-# 1. Clone
-git clone https://github.com/Sviless/ai-data-readiness-auditor.git
+# 1. Clone the repository
+git clone https://github.com/aditeeping13/ai-data-readiness-auditor.git
 cd ai-data-readiness-auditor
 
 # 2. Install dependencies
 python -m pip install -r requirements.txt
 
-# 3. Run
+# 3. Launch the app
 python -m streamlit run app.py
 ```
 
-Then open the URL it prints (usually http://localhost:8501), click
-**Load sample dataset**, and press **Run Data Readiness Audit**. No API key or
-internet connection is required.
+Then open `http://localhost:8501`, click **Load sample dataset**, and press **Run Data Readiness Audit**.
 
-> On Windows you can instead double-click **`run_app.bat`**; on macOS/Linux run
-> **`./run_app.sh`** — both create a virtual environment and launch the app for you.
+> **One-click launcher:** On Windows, double-click **`run_app.bat`**; on macOS/Linux, run **`./run_app.sh`** — both will automatically configure a virtual environment, install dependencies, and launch the application.
 
 ---
 
 ## 1. Project Overview
 
-Teams constantly want dashboards, reports, and AI insights, but their source
-data is often incomplete, duplicated, inconsistent, poorly structured, or simply
-not ready for trusted analysis. The **AI Data Readiness Auditor** catches these
-problems early. Upload a messy file, click **Run Audit**, and get a clear,
-practical readiness assessment with recommendations before you build anything.
+Teams constantly want dashboards, reports, and AI insights, but source data is frequently incomplete, duplicated, inconsistent, poorly structured, or not ready for trusted analysis.
 
-## 2. The Problem This Tool Solves
+The **AI Data Readiness Auditor** catches these issues before they corrupt downstream analytics. Upload a messy file or retail transactions, click **Run Audit**, and get a comprehensive readiness assessment, transparent scores, actionable recommendations, and domain-specific validation rules.
 
-- Dashboards built on dirty data lead to wrong decisions.
-- Messy CSV/Excel trackers hide missing values, duplicates, and inconsistent
-  categories.
-- Analysts waste hours discovering data problems *after* starting the work.
-- Non-technical stakeholders can't easily judge whether data is trustworthy.
+---
 
-This tool surfaces those issues in minutes and tells you what to fix first.
+## 2. Core Problem Solved
 
-## 3. Why Data Readiness Matters
+- **Prevents flawed dashboards**: Decisions made on dirty data lead to costly mistakes.
+- **Identifies hidden traps**: Uncovers unparseable dates, placeholder nulls (e.g., `"N/A"`, `"TBD"`), duplicate primary keys, and inconsistent text casing.
+- **Saves analyst hours**: Replaces manual ad-hoc profiling scripts with an automated, reproducible audit.
+- **Bridges business & technical communication**: Generates clear, component-level scorecards, automated data dictionaries, and executive summaries for non-technical stakeholders.
+- **Guarantees retail transaction integrity**: Validates specialized retail rules (non-negative pricing, integer inventory, non-blank product IDs, transaction uniqueness).
 
-"Garbage in, garbage out." A dashboard is only as trustworthy as the data behind
-it. Data readiness means the dataset is complete enough, consistent enough, and
-structured enough that metrics, trends, and groupings can be trusted. Checking
-readiness *before* building saves rework and protects decision quality.
+---
 
-## 4. Key Features
+## 3. Application Walkthrough & Tabs
 
-- Upload **CSV** or **Excel (.xlsx)** files (Excel via `openpyxl`).
-- Instant dataset preview and column-name validation.
-- Comprehensive audit engine (pandas + numpy):
-  - Column profiling and type inference
-  - Missing-value analysis (true nulls + blank-like placeholders)
-  - Duplicate detection (exact + key-based)
-  - Category consistency checks (capitalization, whitespace, blank-like values, cardinality)
-  - Date quality checks (parse rate, invalid/future/very-old dates)
-  - Numeric quality checks (min/max/mean/median/std, IQR outliers, negatives)
-  - Business and dashboard readiness checks
-- **Data Quality Score** and **Dashboard Readiness Score** (0–100) with transparent, component-level breakdowns.
-- **Data Quality Issue Log** — a structured table of issue type, column affected,
-  severity, description, **recommended fix**, and **business impact**.
-- **Data Dictionary Builder** — inferred type, description draft, example values,
-  missing %, suggested use, and a **dashboard role** for each column
-  (Metric, Dimension, Date, ID, Text, or Unknown).
-- **Dashboard Readiness Advisor** — recommends dashboard pages (Executive Summary,
-  Trend Analysis, Category Breakdown, Owner/Status Tracking, Data Quality Monitoring)
-  based on the fields your data actually contains.
-- **Suggested Chart Gallery** — field-aware chart suggestions (bar, line, histogram,
-  box plot, pie/donut only when appropriate, scatter when numeric pairs exist).
-- **Cleaned Dataset Preview** — apply safe, reversible cleaning toggles (trim text,
-  standardize blank-like values, remove exact duplicates, standardize capitalization)
-  with a live before/after preview and download.
-- **Data Quality Score Breakdown** — see exactly how many points were lost in each issue area.
-- **Audit History Dashboard** — score trends, per-audit score comparison, and issue-count trend from local **SQLite** history.
-- Interactive **Plotly** charts and score gauges.
-- Export a **Markdown** report (20 sections), a **cleaned CSV**, a **column profile CSV**, and an **issue log CSV**.
-- **Template Engine Mode** (default, offline) plus an optional, fully implemented
-  **LLM Enhanced Mode** (OpenAI, Groq, OpenRouter, Gemini, Azure OpenAI, Claude)
-  that adds AI-written narratives when an API key is provided and falls back
-  automatically when it isn't.
+The application features 8 dedicated tabs designed for a seamless end-to-end data audit workflow:
+
+| Tab | Key Capabilities |
+| --- | --- |
+| **1. Upload & Preview** | Upload CSV or Excel (.xlsx) files; preview raw data, column types, and record counts; one-click loader for generic messy data or retail sample data. |
+| **2. Audit Results** | Displays overall **Data Quality Score** and **Dashboard Readiness Score** (0–100); summary metrics; transparent penalty breakdowns across all quality dimensions. |
+| **3. Data Quality Dashboard** | Interactive Plotly visualizers: score gauges, column health overview, missingness distribution, categorical cardinality, and numeric outlier visualizers. |
+| **4. Retail Validation** | Domain-specific checks for retail & e-commerce datasets: verifies Product IDs, non-negative pricing, integer inventory quantities, and duplicate Transaction IDs with a downloadable error log. |
+| **5. Recommendations** | Structured **Issue Log** (severity, recommended fix, business impact); automated **Data Dictionary** with inferred BI roles (Metric, Dimension, Date, ID, Text); **Dashboard Readiness Advisor**; and field-aware **Chart Gallery**. |
+| **6. Cleaned Data** | Non-destructive, reversible cleaning toggles (strip whitespace, normalize blank-like strings, drop duplicates, title-case categories) with live before/after comparison and clean CSV export. |
+| **7. Saved Audits** | Local SQLite-backed audit history: tracks quality score progression, per-audit comparisons, and issue count trends over time. |
+| **8. Exports** | One-click downloads for comprehensive 20-section **Markdown reports**, cleaned dataset CSV, column profile CSV, and structured issue log CSV. |
+
+---
+
+## 4. Key Features in Detail
+
+### 🔍 Comprehensive Profiling Engine
+- **Column profiling**: Inferred types (numeric, datetime, categorical, boolean, text, identifier).
+- **Missing-value detection**: Identifies true nulls plus 17+ placeholder variations (`"N/A"`, `"none"`, `"unknown"`, `"-"`, `"tbd"`, `"?"`).
+- **Duplicate analysis**: Detects exact row duplicates and primary key collisions.
+- **Category consistency**: Checks casing irregularities, leading/trailing whitespace, and high cardinality.
+- **Date & temporal health**: Parse success rates, chronological consistency, future dates, and archaic dates.
+- **Numeric & outlier analysis**: IQR-based outlier flagging, min/max/median/std metrics, and unexpected negative values.
+
+### 🛍️ Retail Data Validation Suite
+Specialized rule checks for e-commerce and retail transaction files:
+- **Product ID Integrity**: Flags missing, blank, or placeholder identifiers.
+- **Price Integrity**: Ensures prices are valid non-negative numbers.
+- **Inventory Quantities**: Validates that stock quantities are non-negative whole integers.
+- **Transaction Uniqueness**: Detects repeated transaction IDs after initial occurrence.
+- **Downloadable Error Log**: Exports affected rows, rule violations, failed values, and clear remedial messages.
+
+### 📊 Transparent Scoring Methodology
+- **Data Quality Score (0–100)**: Component penalties for missing data, duplicates, invalid dates, outliers, and categorical inconsistencies.
+- **Dashboard Readiness Score (0–100)**: Evaluates whether the dataset possesses necessary dimensions, metrics, time fields, and volume for reliable BI reporting.
+- **Rating Tiers**: Ready ($\ge 85$), Minor Issues (70–84), Needs Cleanup (50–69), High Risk ($< 50$).
+
+### 🔄 Dual-Engine Architecture
+1. **Template Engine Mode (Default & 100% Offline)**:
+   - Deterministic, zero-dependency, local template generator.
+   - Requires no API keys, no internet connection, and zero external network calls.
+2. **LLM Enhanced Mode (Optional AI Narratives)**:
+   - Adds rich, context-aware AI narratives, business questions, and risk analysis.
+   - Supports 6 LLM providers: **Groq**, **Google Gemini**, **OpenAI**, **Anthropic Claude**, **OpenRouter**, and **Azure OpenAI**.
+   - Built exclusively with Python standard library (`urllib`) — zero extra pip packages needed.
+   - Seamlessly loads API keys from local `.env` or cloud **Streamlit Secrets** (`st.secrets`).
+   - Automatically and gracefully falls back to Template Engine Mode if no key is present or if network errors occur.
+
+---
 
 ## 5. Technology Stack
 
-- **Python**
-- **Streamlit** (UI)
-- **pandas** / **numpy** (analysis)
-- **SQLite** (`sqlite3`, standard library) for audit history
-- **openpyxl** (Excel support)
-- **Plotly Express** (charts)
-- **GitHub Copilot** + **Claude Opus 4.8** (AI-assisted development)
-- **Template Engine Mode** + **LLM Enhanced Mode** architecture
+- **Frontend & App Framework**: [Streamlit](https://streamlit.io/)
+- **Data Processing & Profiling**: [pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/)
+- **Excel Handling**: [openpyxl](https://openpyxl.readthedocs.io/)
+- **Visualizations**: [Plotly Express](https://plotly.com/python/)
+- **Database / Audit Persistence**: [SQLite3](https://docs.python.org/3/library/sqlite3.html) (Python standard library)
+- **Deployment**: [Streamlit Community Cloud](https://streamlit.io/cloud)
 
-## 6. Folder Structure
+---
+
+## 6. Project Structure
 
 ```
 ai-data-readiness-auditor/
-├── app.py                     # Streamlit UI
-├── requirements.txt
-├── README.md
+├── app.py                     # Main Streamlit multi-tab application
+├── requirements.txt           # Dependency specifications
+├── README.md                  # Project documentation
 ├── LICENSE                    # MIT License
-├── run_app.bat                # One-click Windows launcher
-├── run_app.sh                 # One-click macOS/Linux launcher
-├── .env.example               # Copy to .env to enable optional LLM mode
-├── .gitignore
+├── run_app.bat                # One-click Windows runner
+├── run_app.sh                 # One-click Unix/macOS runner
+├── .env.example               # Template for optional LLM configuration
+├── .gitignore                 # Protects keys, temporary files, and local DBs
 ├── data/
-│   └── data_readiness.db      # SQLite history (created on first run)
-├── outputs/                   # Optional export destination
+│   └── data_readiness.db      # SQLite audit history (generated on first run)
+├── outputs/                   # Destination for generated export files
 ├── sample_files/
-│   └── sample_messy_dataset.csv
+│   ├── sample_messy_dataset.csv  # Generic messy test dataset
+│   └── sample_retail_data.csv    # Specialized retail validation dataset
+├── tests/
+│   └── test_retail_validation.py # Unit tests for retail validation suite
 └── src/
     ├── __init__.py
-    ├── audit_engine.py        # Core pandas/numpy auditing logic
-    ├── template_engine.py     # Template Engine Mode narratives
-    ├── scoring.py             # Quality + dashboard readiness scoring
-    ├── db.py                  # SQLite persistence
-    ├── exporters.py           # Markdown / CSV exports
-    ├── validators.py          # File + dataset validation
-    ├── visualizations.py      # Plotly Express charts
-    ├── sample_data.py         # Generic messy sample dataset generator
-    ├── config.py              # Settings + .env loading + provider detection
-    ├── utils.py               # Helper functions
-    └── providers/
+    ├── audit_engine.py        # Core profiling and audit logic
+    ├── retail_validation.py   # Specialized retail rule validator
+    ├── scoring.py             # Data quality & readiness scoring formulas
+    ├── template_engine.py     # Deterministic offline narrative generation
+    ├── db.py                  # SQLite persistence & trend tracking
+    ├── exporters.py           # Markdown report and CSV builders
+    ├── validators.py          # Input file validation & parsing
+    ├── visualizations.py      # Plotly interactive score gauges and charts
+    ├── sample_data.py         # Synthetic messy data generator
+    ├── config.py              # App configuration, .env, and Streamlit secrets
+    ├── utils.py               # Formatting, string, and file utilities
+    └── providers/             # LLM provider abstraction layer
         ├── __init__.py
-        ├── base_provider.py   # Provider interface
+        ├── base_provider.py
         ├── template_provider.py
-        └── llm_provider.py    # LLM Enhanced Mode (real API calls)
+        └── llm_provider.py    # OpenAI-compatible, Azure, & Claude handlers
 ```
 
-## 7. Setup Instructions
+---
 
-**Prerequisites:** Python 3.9+ installed and on your PATH.
+## 7. Configuration & AI Setup
 
-```powershell
-# 1. (Optional) create and activate a virtual environment
-python -m venv .venv
-.venv\Scripts\activate
-
-# 2. Install dependencies
-pip install -r requirements.txt
-```
-
-## 8. How to Run the App
-
-**Option A — one click:**
-
-- **Windows:** double-click **`run_app.bat`**.
-- **macOS / Linux:** run **`./run_app.sh`** (you may first need `chmod +x run_app.sh`).
-
-Each script creates a virtual environment, installs dependencies, and launches
-the app automatically.
-
-**Option B — manual:**
-
-```bash
-python -m streamlit run app.py
-```
-
-The app opens in your browser (usually at http://localhost:8501).
-
-## 9. How to Use the Sample Dataset
-
-- In the **Upload & Preview** tab, click **Load sample dataset** to instantly
-  load a synthetic messy dataset, then click **Run Data Readiness Audit**.
-- A CSV copy also lives at `sample_files/sample_messy_dataset.csv`. To regenerate
-  it: `python -m src.sample_data`.
-
-The sample intentionally includes missing values, duplicates, inconsistent
-capitalization, date issues, numeric outliers, and blank-like placeholders.
-
-## 10. How Template Engine Mode Works
-
-Template Engine Mode is the **default** generation engine and runs **fully
-offline**. It converts the raw audit results and scores into readable,
-business-friendly deliverables (executive summary, biggest risks, issue log with
-recommended fixes and business impact, data dictionary with dashboard roles,
-chart gallery, recommended dashboard pages, cleanup recommendations, suggested
-questions/next steps, and a final summary) using deterministic local templates in
-`src/template_engine.py`. No API key, account, or internet connection is required.
-
-## 11. How LLM Enhanced Mode Works
-
-The app is architected around a **provider interface** (`src/providers/`).
-**LLM Enhanced Mode** is fully implemented in `src/providers/llm_provider.py` and:
-
-- Is selected entirely by **environment variables** — no keys are ever hardcoded.
-- Reads keys from `os.environ` only and never logs or stores their values.
-- Uses only the Python **standard library** (`urllib`) for the API call, so it adds
-  **no extra dependencies**.
-- Builds a structured, fact-grounded prompt from the audit results and asks the
-  model for JSON, then overlays the AI narrative on top of the deterministic,
-  field-derived sections (data dictionary, chart gallery, dashboard pages) so
-  those stay grounded.
-- **Falls back to Template Engine Mode automatically** — cleanly when no key is
-  configured, and with a clear on-screen reason if a call fails (bad key, network
-  error, non-JSON response, etc.). The app never crashes and never requires a key.
-
-Supported providers (choose one via `LLM_PROVIDER`):
-
-| Provider | `LLM_PROVIDER` | API key variable | Default model |
-| --- | --- | --- | --- |
-| OpenAI | `openai` | `OPENAI_API_KEY` | `gpt-4o-mini` |
-| Groq | `groq` | `GROQ_API_KEY` | `llama-3.3-70b-versatile` |
-| OpenRouter | `openrouter` | `OPENROUTER_API_KEY` | `openai/gpt-4o-mini` |
-| Google Gemini | `gemini` | `GEMINI_API_KEY` | `gemini-2.0-flash` |
-| Azure OpenAI | `azure_openai` | `AZURE_OPENAI_API_KEY` | (deployment name) |
-| Anthropic Claude | `claude` | `ANTHROPIC_API_KEY` | `claude-3-5-sonnet-latest` |
-
-Optional overrides (all optional; none required to run):
-
-```
-LLM_PROVIDER            # which provider to use (e.g. groq)
-LLM_MODEL               # override the default model
-LLM_API_KEY             # generic key (defaults provider to openai if set alone)
-LLM_BASE_URL            # override the OpenAI-compatible base URL
-AZURE_OPENAI_ENDPOINT   # required for Azure OpenAI
-AZURE_OPENAI_DEPLOYMENT # Azure deployment name (or set via LLM_MODEL)
-AZURE_OPENAI_API_VERSION# defaults to 2024-06-01
-```
-
-### Where to put your API key (easiest way — a `.env` file)
-
-You do **not** need to touch any code. The app automatically reads a file named
-`.env` in the project folder.
-
-1. In the project folder you'll see a file called **`.env.example`**.
-   Make a **copy** of it and rename the copy to **`.env`** (just `.env`, with the
-   dot and nothing after it).
-2. Open your new `.env` file. It lists six providers, each commented out.
-3. Pick **one** provider, delete the `#` in front of its two lines, and paste
-   your real key after the `=` sign. For example, for Groq:
+### Local Configuration via `.env`
+1. Make a copy of `.env.example` named `.env`:
+   ```bash
+   cp .env.example .env
    ```
+2. Uncomment your chosen provider and add your API key:
+   ```env
    LLM_PROVIDER=groq
-   GROQ_API_KEY=your-real-key-here
+   GROQ_API_KEY=gsk_your_groq_api_key_here
    ```
-4. **Save** the file and start the app. In the sidebar, choose
-   **LLM Enhanced Mode**.
+3. Start the app and select **LLM Enhanced Mode** in the sidebar.
 
-Your `.env` file is automatically ignored by git, so your key never gets
-committed or shared. If you leave the key out, the app simply keeps using the
-offline **Template Engine Mode** — nothing breaks.
+### Streamlit Community Cloud Deployment Configuration
+When deploying to Streamlit Community Cloud:
+1. Open your app on Streamlit Cloud $\rightarrow$ Click **Settings** $\rightarrow$ **Secrets**.
+2. Enter your secrets in TOML format:
+   ```toml
+   LLM_PROVIDER = "groq"
+   GROQ_API_KEY = "gsk_your_groq_api_key_here"
+   ```
+3. The app automatically detects `st.secrets` and activates AI enhancement.
 
-### Alternative: set it just for the current terminal session
-
-If you'd rather not create a file, set the variables in your terminal before
-launching (they disappear when you close the terminal):
-
-```powershell
-$env:LLM_PROVIDER = "groq"
-$env:GROQ_API_KEY = "your-key-here"
-python -m streamlit run app.py
-```
-
-Select **LLM Enhanced Mode** in the sidebar. If the key is missing or the call
-fails, the app quietly uses Template Engine Mode and tells you why.
-
-## 12. Example Use Case
-
-An operations analyst inherits a messy issue-tracker export. Before building a
-status dashboard, they load it into the auditor. The tool reports a **Data
-Quality Score of 58 (Needs Cleanup)** and a **Dashboard Readiness Score of 61
-(Needs Preparation)**, flags a 42%-missing `Satisfaction_Score` column, 8
-duplicate rows, inconsistent `Region` capitalization, and unparseable dates.
-The analyst exports the cleaned CSV and the Markdown report, fixes the flagged
-issues, re-audits to confirm improvement, and only then builds the dashboard.
-
-## 13. Portfolio Value
-
-This project demonstrates beginner-to-intermediate **data analytics**,
-**data quality thinking**, **BI readiness**, **AI-assisted development**, and
-clean, modular software design — a practical, real-world tool rather than a toy
-example.
-
-## 14. Possible Future Enhancements
-
-- Provider-native SDKs and streaming responses for LLM Enhanced Mode
-- **Great Expectations** integration
-- **ydata-profiling** integration
-- Data lineage tracking
-- KPI definition checker
-- Automated column mapping
-- Power BI readiness checklist
-- SQL database connection
-- Multiple file comparison
-- Scheduled recurring audits
-- Cloud deployment
-
-## 15. Resume Bullets
-
-- Built a local-first **AI Data Readiness Auditor** (Python, Streamlit, pandas,
-  numpy, SQLite, openpyxl, Plotly) that profiles CSV/Excel datasets and detects
-  missing values, duplicates, inconsistent categories, outliers, and date-quality
-  issues, producing 0–100 **Data Quality** and **Dashboard Readiness** scores with
-  transparent, component-level breakdowns.
-- Engineered a structured **Data Quality Issue Log** (issue type, severity,
-  recommended fix, and business impact) and an automated **Data Dictionary Builder**
-  that infers each column's dashboard role (Metric, Dimension, Date, ID, Text),
-  turning raw data profiling into stakeholder-ready deliverables.
-- Designed a **Dashboard Readiness Advisor** and field-aware **Chart Gallery** that
-  recommend BI dashboard pages and appropriate visualizations (bar, line, histogram,
-  box, pie, scatter) based on the columns actually present in the data.
-- Implemented a safe, reversible **data cleaning preview** (whitespace trimming,
-  blank-like normalization, duplicate removal, category standardization) with live
-  before/after metrics and one-click cleaned-CSV export.
-- Delivered an **Audit History Dashboard** backed by SQLite that tracks data
-  quality trends, per-audit score comparisons, and issue counts over time, plus
-  20-section Markdown and CSV exports.
-- Architected the app around a pluggable **provider interface** with an offline
-  **Template Engine Mode** (no API key required) and an optional, fully implemented
-  **LLM Enhanced Mode** supporting six providers (OpenAI, Groq, OpenRouter, Gemini,
-  Azure OpenAI, Claude) via environment variables, with automatic, graceful
-  fallback — demonstrating clean, modular, extensible software design.
+Supported Providers:
+- **Groq** (`LLM_PROVIDER=groq`, `GROQ_API_KEY`)
+- **Google Gemini** (`LLM_PROVIDER=gemini`, `GEMINI_API_KEY`)
+- **OpenAI** (`LLM_PROVIDER=openai`, `OPENAI_API_KEY`)
+- **Anthropic Claude** (`LLM_PROVIDER=claude`, `ANTHROPIC_API_KEY`)
+- **OpenRouter** (`LLM_PROVIDER=openrouter`, `OPENROUTER_API_KEY`)
+- **Azure OpenAI** (`LLM_PROVIDER=azure_openai`, `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_DEPLOYMENT`)
 
 ---
 
-## Author
+## 8. Running Automated Tests
 
-**Gustavo Angulo**
-GitHub: [@Sviless](https://github.com/Sviless)
-
-Built as a data analytics / business intelligence portfolio project.
-
-## License
-
-Released under the **MIT License** — see [LICENSE](LICENSE) for details.
-
----
-
-_Built with Python, Streamlit, pandas, numpy, SQLite, openpyxl, and Plotly Express._
-
-
-## Retail Data Validation extension (November 2026)
-
-This extension adds a **Retail Validation** tab to the Streamlit app. After uploading a
-CSV or XLSX, select columns to validate product identifiers, prices, inventory, and
-transaction IDs. Rules are opt-in and column mappings are explicit; no data is changed.
-The tab provides a downloadable CSV with the failed row, rule, column, value and message.
-
-Rules:
-- Product IDs cannot be null, blank or common missing placeholders (TBD, N/A, etc.).
-- Prices must be valid non-negative numbers.
-- Inventory quantities must be valid non-negative whole numbers.
-- Repeated nonblank transaction IDs are flagged after the first occurrence.
-
-Try `sample_files/sample_retail_data.csv` for a small dataset containing all four
-classes of issues. The new module is `src/retail_validation.py`, with tests at
-`tests/test_retail_validation.py`. Run tests from the project root:
+Run the test suite using Python's built-in `unittest` runner:
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-**Attribution:** Original AI Data Readiness Auditor copyright remains with its
-author(s). See the repository LICENSE. Retail validation is a subsequent
-extension; it is separate from the original core audit and scoring features.
+---
+
+## 9. Example Use Cases
+
+- **E-Commerce & Retail Operations**: Validate inventory spreadsheets, verify that all products have non-negative prices and positive stock counts, and deduplicate transaction IDs before ingest.
+- **Business Intelligence & Analytics**: Audit CSV/Excel exports from CRM, ERP, or marketing platforms before building Power BI, Tableau, or Looker dashboards.
+- **Data Engineering Pre-Checks**: Run quick schema, quality, and null checks on incoming vendor batches before writing ETL transformation pipelines.
+
+---
+
+## 10. Resume Highlights
+
+- **Full-Stack Data Application**: Developed a cloud-deployed data profiling and readiness platform using Python, Streamlit, pandas, NumPy, SQLite, and Plotly Express.
+- **Specialized Domain Validation**: Built an extensible retail rule engine to validate product IDs, pricing constraints, inventory quantities, and transaction uniqueness.
+- **Hybrid Architecture**: Engineered a resilient dual-engine architecture offering 100% offline deterministic templates and optional LLM integration with automatic graceful fallback.
+- **Stakeholder Deliverables**: Automated generation of 20-section executive Markdown audit summaries, data dictionaries, BI dashboard recommendations, and cleaned datasets.
+
+---
+
+## License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
